@@ -24,6 +24,10 @@ public class CashierView implements Observer
   private static final String BUY    = "Buy";
   private static final String BOUGHT = "Bought";
 
+  private static final String REMOVE = "Remove"; // New constant for remove button
+  private final JButton theBtRemoveLast = new JButton(REMOVE);
+
+
   private final JLabel      theAction  = new JLabel();
   private final JTextField  theInput   = new JTextField();
   private final JTextArea   theOutput  = new JTextArea();
@@ -92,6 +96,11 @@ public class CashierView implements Observer
     theSP.getViewport().add( theOutput );           //  In TextArea
     rootWindow.setVisible( true );                  // Make visible
     theInput.requestFocus();                        // Focus is here
+
+    theBtRemoveLast.setBounds(16, 25 + 60 * 2, 80, 40); // Remove Last Button
+    theBtRemoveLast.addActionListener(
+            e -> cont.removeLastAddedItem());
+    cp.add(theBtRemoveLast); // Add to canvas
   }
 
   /**

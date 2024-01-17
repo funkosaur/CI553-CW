@@ -18,6 +18,8 @@ public class Basket extends ArrayList<Product> implements Serializable
 {
   private static final long serialVersionUID = 1;
   private int    theOrderNum = 0;          // Order number
+
+  private Product lastAddedProduct = null; // Track the last added product
   
   /**
    * Constructor for a basket which is
@@ -55,10 +57,25 @@ public class Basket extends ArrayList<Product> implements Serializable
    * @return true if successfully adds the product
    */
   // Will be in the Java doc for Basket
+  /**
+   * Add a product to the Basket.
+   * Product is appended to the end of the existing products
+   * in the basket.
+   *
+   * @param pr A product to be added to the basket
+   * @return true if successfully adds the product
+   */
   @Override
-  public boolean add( Product pr )
-  {                              
-    return super.add( pr );     // Call add in ArrayList
+  public boolean add(Product pr) {
+    boolean result = super.add(pr); // Call add in ArrayList
+    if (result) {
+      lastAddedProduct = pr;
+    }
+    return result;
+  }
+
+  public Product getLastAddedProduct() {
+    return lastAddedProduct;
   }
 
   /**

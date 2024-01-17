@@ -20,6 +20,7 @@ public class CashierModel extends Observable
   private Product     theProduct = null;            // Current product
   private Basket      theBasket  = null;            // Bought items
 
+
   private String      pn = "";                      // Product being processed
 
   private StockReadWriter theStock     = null;
@@ -130,6 +131,36 @@ public class CashierModel extends Observable
     theState = State.process;                   // All Done
     setChanged(); notifyObservers(theAction);
   }
+
+
+  /**
+   * Remove the last added item from the basket
+   */
+  public void removeLastAddedItem() {
+    String theAction = "";
+    try {
+      if (theBasket != null) {
+        Product lastAddedProduct = theBasket.getLastAddedProduct();
+        if (lastAddedProduct != null) {
+          theStock.addStock(lastAddedProduct.getProductNum(), lastAddedProduct.getQuantity());
+          theBasket.remove(lastAddedProduct);
+          theAction = "Removed and added back last added item to the database";
+        } else {
+          theAction = "No items in the basket to remove";
+        }
+      } else {
+        theAction = "No items in the basket to remove";
+      }
+    } catch (Exception e) {
+      DEBUG.error("%s\n%s",
+              "CashierModel.removeLastAddedItem", e.getMessage());
+      theAction = "Unexpected error: " + e.getMessage();
+    }
+    setChanged();
+    notifyObservers(theAction);
+  }
+
+
   
   /**
    * Customer pays for the contents of the basket

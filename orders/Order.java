@@ -31,7 +31,8 @@ public class Order implements OrderProcessing
   private class Folder
   {
     private State  stateIs;       // Order state
-    private Basket basket;        // For this basket
+    private Basket basket;
+    // For this basket
     
     public Folder( Basket anOrder )
     {
@@ -50,9 +51,11 @@ public class Order implements OrderProcessing
   private final ArrayList<Folder>  folders = new ArrayList<>();
   private static int theNextNumber = 1;          // Start at order 1
 
-  /**  
+  /**
    * Used to generate debug information
    * @param  basket an instance of a basket
+   * stops the use of strings as a substitute
+   * th
    * @return Description of contents
    */
   private String asString( Basket basket )
@@ -123,6 +126,8 @@ public class Order implements OrderProcessing
    * @param  orderNum The order that has been picked
    * @return true Order in system, false no such order
    */
+
+
   public synchronized boolean informOrderPicked( int orderNum )
          throws OrderException
   {
