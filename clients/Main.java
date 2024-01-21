@@ -1,4 +1,7 @@
 package clients;
+import clients.advertisement.AdvertisementController;
+import clients.advertisement.AdvertisementModel;
+import clients.advertisement.AdvertisementView;
 import clients.backDoor.BackDoorController;
 import clients.backDoor.BackDoorModel;
 import clients.backDoor.BackDoorView;
@@ -59,6 +62,7 @@ class Main
       startPickGUI_MVC( mlf );
     startPickGUI_MVC( mlf );
     startDisplayGUI_MVC( mlf );
+    startAdvertisementGUI_MVC(mlf);
     if ( many ) 
       startDisplayGUI_MVC( mlf );
     startCollectionGUI_MVC( mlf );
@@ -147,6 +151,23 @@ class Main
     DisplayModel model      = new DisplayModel(mlf);
     DisplayView view        = new DisplayView( window, mlf, pos.width, pos.height );
     DisplayController cont  = new DisplayController( model, view );
+    view.setController( cont );
+
+    model.addObserver( view );       // Add observer to the model
+    window.setVisible(true);         // Make window visible
+  }
+
+  public void startAdvertisementGUI_MVC(MiddleFactory mlf )
+  {
+    JFrame  window = new JFrame();
+
+    window.setTitle( "Advertisement");
+    window.setDefaultCloseOperation( JFrame.EXIT_ON_CLOSE );
+    Dimension pos = PosOnScrn.getPos();
+
+    AdvertisementModel model      = new AdvertisementModel();
+    AdvertisementView view        = new AdvertisementView( window, pos.width, pos.height );
+    AdvertisementController cont  = new AdvertisementController( model, view );
     view.setController( cont );
 
     model.addObserver( view );       // Add observer to the model
