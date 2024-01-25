@@ -23,8 +23,17 @@ import clients.warehousePick.PickView;
 import middle.LocalMiddleFactory;
 import middle.MiddleFactory;
 
+import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.*;
+import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.IOException;
+import java.nio.file.FileSystems;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.util.ArrayList;
+import java.util.List;
 
 
 /**
@@ -66,6 +75,9 @@ class Main
     if ( many ) 
       startDisplayGUI_MVC( mlf );
     startCollectionGUI_MVC( mlf );
+
+    if ( many )
+      startAdvertisementGUI_MVC(mlf);
   }
   
   public void startCustomerGUI_MVC(MiddleFactory mlf )
@@ -156,6 +168,33 @@ class Main
     model.addObserver( view );       // Add observer to the model
     window.setVisible(true);         // Make window visible
   }
+  private static List<BufferedImage> loadImages() {
+    List<BufferedImage> images = new ArrayList<>();
+
+    try {
+      BufferedImage image1 = loadImage("clients/LaptopSale.jpg");
+      BufferedImage image2 = loadImage("clients/Sale.jpg");
+      BufferedImage image3 = loadImage("clients/Sale2.jpg");
+      // Add more images as needed
+
+      images.add(image1);
+      images.add(image2);
+      images.add(image3);
+      // Add more images as needed
+    } catch (IOException e) {
+      e.printStackTrace();
+    }
+
+    return images;
+  }
+
+
+  // Loads images based on comments
+  private static BufferedImage loadImage(String imagePath) throws IOException {
+    Path path = FileSystems.getDefault().getPath(imagePath);
+    return ImageIO.read(Files.newInputStream(path));
+  }
+
 
   public void startAdvertisementGUI_MVC(MiddleFactory mlf )
   {
@@ -165,14 +204,20 @@ class Main
     window.setDefaultCloseOperation( JFrame.EXIT_ON_CLOSE );
     Dimension pos = PosOnScrn.getPos();
 
-    AdvertisementModel model      = new AdvertisementModel();
+      List<BufferedImage> images = loadImages();
+      AdvertisementModel model = new AdvertisementModel(images);
     AdvertisementView view        = new AdvertisementView( window, pos.width, pos.height );
     AdvertisementController cont  = new AdvertisementController( model, view );
+
     view.setController( cont );
+
 
     model.addObserver( view );       // Add observer to the model
     window.setVisible(true);         // Make window visible
+
   }
+
+
 
 
   public void startCollectionGUI_MVC(MiddleFactory mlf )

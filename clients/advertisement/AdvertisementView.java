@@ -12,7 +12,6 @@ import java.util.Observer;
 public class AdvertisementView extends JFrame implements Observer {
 
     private static final long serialVersionUID = 1L;
-    private Font font = new Font("Monospaced",Font.BOLD,24);
     private int H = 300;         // Height of window
     private int W = 400;         // Width  of window
     private String textToDisplay = "";
@@ -22,19 +21,12 @@ public class AdvertisementView extends JFrame implements Observer {
 
     public AdvertisementView(RootPaneContainer rpc, int x, int y) {
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        Container cp         = rpc.getContentPane();    // Content Pane
-        Container rootWindow = (Container) rpc;         // Root Window
-        cp.setLayout( new BorderLayout() );             // Border N E S W CENTER
-        rootWindow.setSize( W, H );                     // Size of Window
-        rootWindow.setLocation( x, y );                 // Position on screen
-        rootWindow.add( this, BorderLayout.CENTER );    //  Add to rootwindow
-
-        rootWindow.setVisible( true );                  // Make visible
-
+        setLayout( new BorderLayout() );                // Border Layout for this frame
+        setSize( W, H );                               // Size of this frame
+        setLocation( x, y );                            // Position of this frame on screen
+        setVisible( true );                                // Make this frame visible
         imageLabel = new JLabel();
-        getContentPane().add(imageLabel, BorderLayout.CENTER);
-
-        pack();
+        add(imageLabel, BorderLayout.CENTER);
     }
 
 

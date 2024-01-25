@@ -108,7 +108,7 @@ public class CashierModel extends Observable
       {                                         //  with customer
         theAction = "Check if OK with customer first";
       } else {
-        boolean stockBought =                   // Buy
+        boolean stockBought =                   // B  uy
           theStock.buyStock(                    //  however
             theProduct.getProductNum(),         //  may fail              
             theProduct.getQuantity() );         //
@@ -140,7 +140,7 @@ public class CashierModel extends Observable
     String theAction = "";
     try {
       if (theBasket != null) {
-        Product lastAddedProduct = theBasket.getLastAddedProduct();
+          Product lastAddedProduct = theBasket.getLastAddedProduct();
         if (lastAddedProduct != null) {
           theStock.addStock(lastAddedProduct.getProductNum(), lastAddedProduct.getQuantity());
           theBasket.remove(lastAddedProduct);
